@@ -5,13 +5,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 ​
 import { EventComponent } from './containers/event/event.component';
 import { AddAttendeeComponent } from './components/add-attendee/add-attendee.component';
+import { EventListComponent } from './components/event-list/event-list.component';
 ​
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([{ path: '', component: EventComponent }]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  declarations: [EventComponent, AddAttendeeComponent]
+  declarations: [
+    EventComponent,
+    AddAttendeeComponent,
+    EventListComponent,
+  ]
 })
 export class EventModule {}
