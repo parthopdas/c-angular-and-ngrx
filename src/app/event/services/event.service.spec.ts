@@ -1,12 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { EventService } from './event.service';
-import { HttpClient } from '@angular/common/http';
 
 describe('EventService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [EventService, HttpClient]
+      imports: [HttpClientTestingModule],
+      providers: [EventService]
     });
   });
 
