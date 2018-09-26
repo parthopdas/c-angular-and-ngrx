@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, filter, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { EventService } from '../../services/event.service';
@@ -12,9 +12,12 @@ import {
   LoadAttendeesFail,
   AddAttendee,
   AddAttendeeSuccess,
-  AddAttendeeFail
+  AddAttendeeFail,
+  FilterBy
 } from './attendees.actions';
 import { Attendee } from '../../../models';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
+import { RouterNavigationAction } from '@ngrx/router-store';
 
 @Injectable()
 export class AttendeesEffects {
@@ -40,5 +43,16 @@ export class AttendeesEffects {
         catchError(error => of(new AddAttendeeFail(error)))
       )
     )
+  );
+
+  @Effect()
+  loadDiaryHealthActions$ = this.actions$.pipe(
+    ofType(ROUTER_NAVIGATION),
+    map((r: RouterNavigationAction) => ({
+      url: r.payload.routerState.url,
+      filterBy: r.payload.routerState.root.queryParams['filterBy']
+    })),
+    filter(({ url, filterBy }) => url.startsWith('/event')),
+    map(({ filterBy }) => new FilterBy(filterBy))
   );
 }
