@@ -41,6 +41,14 @@ export function reducer(state = intitalState, action: AttendeesActions): State {
       });
     }
 
+    case AttendeesActionTypes.AddAttendeeSuccess: {
+      return adapter.addOne(action.payload, { ...state, error: null });
+    }
+
+    case AttendeesActionTypes.AddAttendeeFail: {
+      return { ...state, error: action.payload };
+    }
+
     default: {
       return state;
     }
@@ -53,4 +61,3 @@ export const {
   selectAll,
   selectTotal
 } = adapter.getSelectors();
-
