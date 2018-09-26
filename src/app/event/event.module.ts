@@ -8,12 +8,15 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { EventComponent } from './containers/event/event.component';
 import { AddAttendeeComponent } from './components/add-attendee/add-attendee.component';
 import { EventListComponent } from './components/event-list/event-list.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './state';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([{ path: '', component: EventComponent }]),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forFeature('event', reducers)
   ],
   declarations: [EventComponent, AddAttendeeComponent, EventListComponent]
 })
