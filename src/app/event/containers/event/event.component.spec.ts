@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { EventComponent } from './event.component';
-import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
+import { HttpClient } from '@angular/common/http';
 
+import { EventComponent } from './event.component';
 import { EventService } from '../../services/event.service';
 
 describe('EventComponent', () => {
   let component: EventComponent;
   let fixture: ComponentFixture<EventComponent>;
   let service: EventService;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -19,6 +19,12 @@ describe('EventComponent', () => {
           provide: EventService,
           useValue: {
             getAttendees: () => {}
+          }
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: () => {}
           }
         }
       ],
